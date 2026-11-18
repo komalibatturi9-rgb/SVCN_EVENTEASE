@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | EventEase</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <div class="logo">Event<span>Ease</span></div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="index.html#events">Events</a>
+    </nav>
+    <a href="register.html" class="nav-btn">Join Now</a>
+</header>
+
+<section class="auth-section">
+    <div class="auth-card">
+        <h2>Welcome Back!</h2>
+        <p>Login to your EventEase account</p>
+
+        <form id="loginForm">
+            <label>Email Address</label>
+            <input type="email" id="email"
+                   placeholder="Enter your email" required>
+
+            <label>Password</label>
+            <input type="password" id="password"
+                   placeholder="Enter your password" required>
+
+            <label>Login As</label>
+            <select id="role" required>
+                <option value="student">Student</option>
+                <option value="admin">Admin</option>
+            </select>
+
+            <button type="submit" class="primary-btn auth-btn" id="loginButton">
+                Login
+            </button>
+
+            <p id="message" style="margin-top:15px;"></p>
+        </form>
+
+        <p class="auth-footer">
+            Don't have an account?
+            <a href="register.html">Register here</a>
+        </p>
+    </div>
+</section>
+
+<script type="module">
+    
+    import { auth, db } from "./js/firebase.js";
+
+    import {
+      signInWithEmailAndPassword,
+      signOut
+    }     from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+
+    import {
+       doc,
+       getDoc
+    } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+const loginForm = document.getElementById("loginForm");
+const message = document.getElementById("message");
+const loginButton = document.getElementById("loginButton");
+
+loginForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const role = document.getElementById("role").value;
+
+    message.textContent = "";
+    loginButton.disabled = true;
+    loginButton.textContent = "Logging in...";
+
+    try {
+        const result = await signInWithEmailAndPassword(
+            auth, email, password
+        );
+
+        const user = result.user;
+
+        if (role === "admin") {
+
+            const adminRef = doc(db, "admins", user.uid);
+            const adminSnapshot = await getDoc(adminRef);
+
+            if (
+                !adminSnapshot.exists() ||
+                adminSnapshot.data().role !== "admin"
+            ) {
+                await signOut(auth);
+                message.textContent =
+                    "Access denied! You are not an authorized admin.";
+                return;
+            }
+
+            window.location.href = "admin-dashboard.html";
+
+        } else {
+
+            const studentRef = doc(db, "students", user.uid);
+            const studentSnapshot = await getDoc(studentRef);
+
+            if (!studentSnapshot.exists()) {
+                await signOut(auth);
+                message.textContent =
+                    "Student profile not found. Please contact the administrator.";
+                return;
+            }
+
+            window.location.href = "student-dashboard.html";
+        }
+
+    } catch (error) {
+        console.error(error);
+
+        message.textContent =
+            "Login failed. Please check your email and password.";
+    } finally {
+        loginButton.disabled = false;
+        loginButton.textContent = "Login";
+    }
+});
+
+</script>
+
+</body>
+</html>

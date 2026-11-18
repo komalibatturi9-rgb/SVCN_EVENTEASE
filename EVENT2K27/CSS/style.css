@@ -1,0 +1,298 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #ffffff;
+    color: #172b4d;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 7%;
+    border-bottom: 1px solid #e8edf5;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: bold;
+    color: #174ea6;
+}
+
+.logo span {
+    color: #3994e8;
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #344563;
+    font-size: 15px;
+}
+
+nav a:hover {
+    color: #2878d0;
+}
+
+.nav-btn, .primary-btn {
+    background: #246bc2;
+    color: white;
+    text-decoration: none;
+    padding: 12px 23px;
+    border-radius: 7px;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 75px 7%;
+    gap: 40px;
+    background: #f3f8ff;
+}
+
+.hero-content {
+    flex: 1;
+}
+
+.tagline {
+    color: #2878d0;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    font-size: 49px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    color: #17365d;
+}
+
+.description {
+    color: #64748b;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    max-width: 480px;
+}
+
+.hero-image {
+    flex: 1;
+}
+
+.hero-image img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 12px 30px #17365d22;
+}
+
+.events-section {
+    padding: 70px 7%;
+    text-align: center;
+}
+
+.events-section h2, .about h2 {
+    font-size: 34px;
+    margin-bottom: 12px;
+}
+
+.section-desc {
+    color: #718096;
+    margin-bottom: 35px;
+}
+
+.event-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    text-align: left;
+}
+
+.event-card {
+    border: 1px solid #e6edf5;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.event-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px #17365d18;
+}
+
+.event-card img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+.event-info {
+    padding: 22px;
+}
+
+.event-info span {
+    color: #2878d0;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.event-info h3 {
+    margin: 12px 0;
+}
+
+.event-info p {
+    color: #718096;
+    margin-bottom: 18px;
+}
+
+.event-info a {
+    color: #246bc2;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.about {
+    background: #f3f8ff;
+    text-align: center;
+    padding: 60px 15%;
+}
+
+.about p {
+    color: #64748b;
+    line-height: 1.8;
+}
+
+footer {
+    background: #17365d;
+    color: white;
+    text-align: center;
+    padding: 23px;
+}
+
+@media(max-width: 768px) {
+    header {
+        flex-wrap: wrap;
+        gap: 18px;
+    }
+
+    nav {
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    .hero {
+        flex-direction: column;
+        padding: 45px 6%;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .event-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.auth-section {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background: #f3f8ff;
+}
+
+.auth-card {
+    background: white;
+    width: 100%;
+    max-width: 430px;
+    padding: 35px;
+    border-radius: 14px;
+    box-shadow: 0 8px 30px #17365d15;
+}
+
+.auth-card h2 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.auth-card > p {
+    text-align: center;
+    color: #718096;
+    margin-bottom: 25px;
+}
+
+.auth-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.auth-card label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.auth-card input,
+.auth-card select {
+    padding: 13px;
+    border: 1px solid #dce5ef;
+    border-radius: 7px;
+    outline: none;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.auth-card input:focus,
+.auth-card select:focus {
+    border-color: #2878d0;
+}
+
+.auth-btn {
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.auth-footer {
+    margin-top: 22px;
+    font-size: 14px;
+}
+
+.auth-footer a {
+    color: #246bc2;
+    text-decoration: none;
+    font-weight: bold;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 23px;
+    font-weight: bold;
+    color: #174ea6;
+}
+
+.logo img {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+}

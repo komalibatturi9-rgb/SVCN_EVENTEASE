@@ -1,0 +1,468 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVCN EventEase | College Event Management</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f8ff;
+            color: #26354a;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        header {
+            background: white;
+            padding: 12px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #174ea6;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .logo img {
+            width: 55px;
+            height: 55px;
+            object-fit: contain;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #26354a;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #1769d2;
+        }
+
+        .login-btn {
+            background: #1769d2;
+            color: white !important;
+            padding: 10px 22px;
+            border-radius: 7px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 480px;
+            background:
+                linear-gradient(rgba(8, 35, 75, 0.68),
+                rgba(8, 35, 75, 0.68)),
+                url("images/college_banner.jpg") center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 50px 20px;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 750px;
+        }
+
+        .hero h1 {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 28px;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            background: white;
+            color: #174ea6;
+            text-decoration: none;
+            padding: 13px 28px;
+            border-radius: 7px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .hero-btn:hover {
+            background: #dceaff;
+            transform: translateY(-3px);
+        }
+
+        /* Common Section */
+        section {
+            padding: 65px 8%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-heading h2 {
+            color: #174ea6;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .section-heading p {
+            color: #68778a;
+        }
+
+        /* Events */
+        .events-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-7px);
+        }
+
+        .event-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .event-info {
+            padding: 22px;
+        }
+
+        .event-info h3 {
+            color: #174ea6;
+            margin-bottom: 10px;
+        }
+
+        .event-info p {
+            color: #65748a;
+            margin-bottom: 15px;
+        }
+
+        .event-link {
+            color: #1769d2;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        /* About */
+        .about {
+            background: white;
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 330px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .about-content h2 {
+            color: #174ea6;
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .about-content p {
+            color: #65748a;
+            margin-bottom: 15px;
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            text-align: center;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 28px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .feature-card h3 {
+            color: #174ea6;
+            margin-bottom: 10px;
+        }
+
+        .feature-icon {
+            font-size: 35px;
+            margin-bottom: 12px;
+        }
+
+        /* Call to Action */
+        .cta {
+            background: #174ea6;
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .cta p {
+            margin-bottom: 25px;
+        }
+
+        /* Footer */
+        footer {
+            background: #102c50;
+            color: white;
+            text-align: center;
+            padding: 25px 15px;
+        }
+
+        footer p {
+            margin: 5px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 850px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .events-container,
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .events-container,
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 45px 6%;
+            }
+
+            .logo {
+                font-size: 19px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <div class="logo">
+            <img src="images/college_logo.png" alt="SVCN College Logo">
+            <span>SVCN EventEase</span>
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="#events">Events</a>
+            <a href="#about">About</a>
+            <a href="login.html">Login</a>
+            <a href="register.html" class="login-btn">Join Now</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to SVCN EventEase</h1>
+            <p>
+                Your one-stop platform to discover, explore and participate
+                in exciting college events, workshops and activities.
+            </p>
+            <a href="#events" class="hero-btn">Explore Events</a>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events">
+        <div class="section-heading">
+            <h2>Explore Our Events</h2>
+            <p>Discover opportunities to learn, participate and celebrate.</p>
+        </div>
+
+        <div class="events-container">
+
+            <div class="event-card">
+                <img src="images/technical.jpg" alt="Technical Events">
+                <div class="event-info">
+                    <h3>Technical Events</h3>
+                    <p>
+                        Participate in technical competitions, coding events,
+                        project exhibitions and innovative workshops.
+                    </p>
+                    <a href="login.html" class="event-link">Explore Events →</a>
+                </div>
+            </div>
+
+            <div class="event-card">
+                <img src="images/cultural.jpg" alt="Cultural Events">
+                <div class="event-info">
+                    <h3>Cultural Events</h3>
+                    <p>
+                        Celebrate creativity through music, dance,
+                        performances and cultural activities.
+                    </p>
+                    <a href="login.html" class="event-link">Explore Events →</a>
+                </div>
+            </div>
+
+            <div class="event-card">
+                <img src="images/sports.jpg" alt="Sports Events">
+                <div class="event-info">
+                    <h3>Sports Events</h3>
+                    <p>
+                        Showcase your teamwork and sports skills through
+                        exciting games and competitions.
+                    </p>
+                    <a href="login.html" class="event-link">Explore Events →</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+
+            <div class="about-image">
+                <img src="images/campus.jpg" alt="SVCN College Campus">
+            </div>
+
+            <div class="about-content">
+                <h2>About SVCN EventEase</h2>
+                <p>
+                    SVCN EventEase is a college event management platform
+                    designed to make event discovery and participation
+                    simple and convenient for students.
+                </p>
+
+                <p>
+                    Students can explore upcoming events, register for
+                    activities and stay updated with college programmes.
+                    Administrators can manage events and registrations
+                    through the platform.
+                </p>
+
+                <p>
+                    Our goal is to create a connected and engaging
+                    campus experience.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section>
+        <div class="section-heading">
+            <h2>Why Choose EventEase?</h2>
+            <p>Everything you need to stay connected with college events.</p>
+        </div>
+
+        <div class="features">
+
+            <div class="feature-card">
+                <div class="feature-icon">📅</div>
+                <h3>Easy Event Discovery</h3>
+                <p>Find college events and upcoming activities in one place.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📝</div>
+                <h3>Simple Registration</h3>
+                <p>Register for your favourite events through the platform.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔔</div>
+                <h3>Stay Updated</h3>
+                <p>Keep track of event information and announcements.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta">
+        <h2>Ready to Be Part of the Events?</h2>
+        <p>Join SVCN EventEase and explore exciting college experiences.</p>
+        <a href="register.html" class="hero-btn">Register Now</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>SVCN EventEase</strong></p>
+        <p>College Event Management System</p>
+        <p>Designed to connect students with campus activities.</p>
+        <p>© 2026 SVCN EventEase. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

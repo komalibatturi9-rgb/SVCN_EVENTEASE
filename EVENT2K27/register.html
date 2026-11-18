@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration | SVCN EventEase</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #eaf2ff, #f7f9ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+        }
+
+        .register-container {
+            background: white;
+            width: 100%;
+            max-width: 480px;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .logo img {
+            width: 65px;
+            height: 65px;
+            object-fit: contain;
+        }
+
+        h2 {
+            text-align: center;
+            color: #174ea6;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            color: #26354a;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 17px;
+            border: 1px solid #ccd6e5;
+            border-radius: 7px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        input:focus {
+            border-color: #1769d2;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            background: #1769d2;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #104c9f;
+        }
+
+        button:disabled {
+            background: #8ba9d6;
+            cursor: not-allowed;
+        }
+
+        #message {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .bottom-text {
+            text-align: center;
+            margin-top: 20px;
+            color: #65748a;
+            font-size: 14px;
+        }
+
+        a {
+            color: #1769d2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="register-container">
+
+        <div class="logo">
+            <img src="images/college_logo.png" alt="SVCN Logo">
+        </div>
+
+        <h2>Create Student Account</h2>
+
+        <p class="subtitle">
+            Join SVCN EventEase and explore college events
+        </p>
+
+        <form id="registerForm">
+
+            <label for="name">Full Name</label>
+            <input type="text" id="name"
+                   placeholder="Enter your full name" required>
+
+            <label for="roll">Roll Number</label>
+            <input type="text" id="roll"
+                   placeholder="Enter your roll number" required>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email"
+                   placeholder="Enter your email" required>
+
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone"
+                   placeholder="Enter your phone number"
+                   pattern="[0-9]{10}" required>
+
+            <label for="department">Department</label>
+            <input type="text" id="department"
+                   placeholder="Example: CSE, AIML, ECE" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password"
+                   placeholder="Create a password"
+                   minlength="6" required>
+
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword"
+                   placeholder="Re-enter your password"
+                   minlength="6" required>
+
+            <button type="submit" id="registerButton">
+                Create Account
+            </button>
+
+        </form>
+
+        <p id="message" role="status" aria-live="polite"></p>
+
+        <p class="bottom-text">
+            Already have an account?
+            <a href="login.html">Login</a>
+        </p>
+
+        <a href="index.html" class="back-home">
+            ← Back to Home
+        </a>
+
+    </div>
+
+    
+<script type="module">
+import { auth, db } from "./js/firebase.js";
+
+import {
+    createUserWithEmailAndPassword,
+    updateProfile
+} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+
+import {
+    doc,
+    setDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+const form = document.getElementById("registerForm");
+
+form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const roll = document.getElementById("roll").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const department = document.getElementById("department").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+    }
+
+    try {
+        const userCredential = await createUserWithEmailAndPassword(
+            auth, email, password
+        );
+
+        const user = userCredential.user;
+
+        await updateProfile(user, {
+            displayName: name
+        });
+
+        await setDoc(doc(db, "students", user.uid), {
+            name: name,
+            rollNumber: roll,
+            email: email,
+            phone: phone,
+            department: department,
+            createdAt: serverTimestamp()
+        });
+
+        alert("Student registration successful!");
+
+        window.location.href = "login.html";
+
+    } catch (error) {
+        console.error("Registration error:", error);
+        if (error.code === "auth/email-already-in-use") {
+            alert("This email is already registered. Please login instead.");
+        } else {
+             alert("Registration failed: " + error.message);
+        }
+    }
+});
+</script>
+
+
+</body>
+</html>

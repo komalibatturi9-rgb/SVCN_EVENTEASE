@@ -1,0 +1,718 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | EventEase</title>
+    <link rel="stylesheet" href="css/style.css">
+
+<style>
+    body {
+        margin: 0;
+        background: #f3f6fc;
+        color: #24324a;
+        font-family: Arial, sans-serif;
+    }
+
+    header {
+        background: #ffffff;
+        padding: 18px 5%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 15px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    header .logo {
+        font-size: 25px;
+        font-weight: bold;
+        color: #123b72;
+    }
+
+    header .logo span {
+        color: #3185dc;
+    }
+
+    header nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 22px;
+    }
+
+    header nav a {
+        color: #334b68;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    header nav a:hover {
+        color: #287bd1;
+    }
+
+    .nav-btn {
+        background: #164b89;
+        color: white;
+        border: none;
+        padding: 11px 22px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .admin-container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 40px auto;
+    }
+
+    .admin-container > h1 {
+        color: #123b72;
+        font-size: 32px;
+        margin-bottom: 8px;
+    }
+
+    .admin-container > p {
+        color: #718096;
+        margin-bottom: 30px;
+    }
+
+    .admin-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+        margin: 30px 0;
+    }
+
+    .admin-card {
+        background: white;
+        padding: 22px;
+        border-radius: 13px;
+        border: 1px solid #e5ebf4;
+        box-shadow: 0 4px 15px rgba(25,55,95,0.05);
+        margin-bottom: 15px;
+    }
+
+    .admin-stats .admin-card {
+        border-left: 5px solid #3185dc;
+    }
+
+    .admin-stats h3 {
+        color: #65758b;
+        font-size: 15px;
+    }
+
+    .admin-stats p {
+        color: #164b89;
+        font-size: 30px;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+
+    .admin-section {
+        background: white;
+        padding: 28px;
+        margin: 30px 0;
+        border-radius: 14px;
+        box-shadow: 0 4px 18px rgba(25,55,95,0.05);
+        border: 1px solid #e5ebf4;
+    }
+
+    .admin-section h2 {
+        color: #164b89;
+        margin-top: 0;
+    }
+
+    .admin-section h3 {
+        color: #263f60;
+    }
+
+    .admin-section form {
+        display: grid;
+        gap: 12px;
+        max-width: 600px;
+        margin: 22px 0;
+    }
+
+    .admin-section label {
+        font-weight: 600;
+        color: #334b68;
+    }
+
+    .admin-section input,
+    .admin-section select {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 13px;
+        border: 1px solid #d5dfec;
+        border-radius: 8px;
+        font-size: 15px;
+        outline: none;
+    }
+
+    .admin-section input:focus,
+    .admin-section select:focus {
+        border-color: #3185dc;
+        box-shadow: 0 0 0 3px rgba(49,133,220,0.12);
+    }
+
+    .primary-btn {
+        background: #2478cc;
+        color: white;
+        border: none;
+        padding: 11px 19px;
+        border-radius: 7px;
+        cursor: pointer;
+        font-weight: 600;
+        margin: 5px 6px 5px 0;
+    }
+
+    .primary-btn:hover,
+    .nav-btn:hover {
+        background: #123b72;
+    }
+
+    #categoryList,
+    #eventList,
+    #registrationList {
+        margin-top: 20px;
+    }
+
+    #categoryList .admin-card,
+    #eventList .admin-card,
+    #registrationList .admin-card {
+        border-left: 4px solid #3185dc;
+    }
+
+    @media (max-width: 700px) {
+        header {
+            justify-content: center;
+        }
+
+        header nav {
+            justify-content: center;
+        }
+
+        .admin-stats {
+            grid-template-columns: 1fr;
+        }
+
+        .admin-container {
+            width: 92%;
+        }
+
+        .admin-section {
+            padding: 18px;
+        }
+    }
+</style>
+
+</head>
+<body>
+
+<header>
+    <div class="logo">Event<span>Ease</span></div>
+    <nav>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#categories">Categories</a>
+        <a href="#events">Events</a>
+        <a href="#registrations">Registrations</a>
+    </nav>
+    <button id="logoutButton" class="nav-btn">Logout</button>
+</header>
+
+<main class="admin-container" id="dashboard">
+    <h1>Admin Dashboard</h1>
+    <p>Manage college events and student registrations.</p>
+
+    <section class="admin-stats">
+        <div class="admin-card">
+            <h3>Total Categories</h3>
+            <p id="categoryCount">0</p>
+        </div>
+
+        <div class="admin-card">
+            <h3>Total Events</h3>
+            <p id="eventCount">0</p>
+        </div>
+
+        <div class="admin-card">
+            <h3>Total Registrations</h3>
+            <p id="registrationCount">0</p>
+        </div>
+    </section>
+
+    
+<section id="categories" class="admin-section">
+    <h2>Manage Event Categories</h2>
+    <p>Add new categories for your college events.</p>
+
+    <form id="categoryForm">
+        <label for="categoryName">Category Name</label>
+        <input
+            type="text"
+            id="categoryName"
+            placeholder="Example: Technical Events"
+            required
+        >
+
+        <label for="categoryDescription">Description</label>
+        <input
+            type="text"
+            id="categoryDescription"
+            placeholder="Enter category description"
+            required
+        >
+
+        <button type="submit" class="primary-btn">
+            Add Category
+        </button>
+    </form>
+
+    <h3>Available Categories</h3>
+    <div id="categoryList">
+        <p>Loading categories...</p>
+    </div>
+</section>
+
+    
+<section id="events" class="admin-section">
+    <h2>Manage Sub-Events</h2>
+    <p>Add individual events under existing categories.</p>
+
+    <form id="eventForm">
+
+        <label for="eventCategory">Select Category</label>
+        <select id="eventCategory" required>
+            <option value="">Select a category</option>
+        </select>
+
+        <label for="eventName">Event Name</label>
+        <input
+            type="text"
+            id="eventName"
+            placeholder="Example: Coding Competition"
+            required
+        >
+
+        <label for="eventDescription">Event Description</label>
+        <input
+            type="text"
+            id="eventDescription"
+            placeholder="Enter event details"
+            required
+        >
+
+        <button type="submit" class="primary-btn">
+            Add Event
+        </button>
+    </form>
+
+    <h3>Available Sub-Events</h3>
+    <div id="eventList">
+        <p>Events will appear here.</p>
+    </div>
+</section>
+
+
+    
+<section id="registrations" class="admin-section">
+    <h2>Student Registrations</h2>
+    <p>View students who registered for college events.</p>
+
+    <div id="registrationList">
+        <p>Loading registrations...</p>
+    </div>
+</section>
+
+</main>
+
+
+
+<script type="module">
+import { auth, db } from "./js/firebase.js";
+
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
+import {
+    doc,
+    getDoc,
+    collection,
+    addDoc,
+    getDocs,
+    serverTimestamp,
+    updateDoc,
+    deleteDoc
+} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+
+
+const logoutButton = document.getElementById("logoutButton");
+const categoryForm = document.getElementById("categoryForm");
+const categoryList = document.getElementById("categoryList");
+
+const eventForm = document.getElementById("eventForm");
+const eventCategory = document.getElementById("eventCategory");
+const eventList = document.getElementById("eventList");
+
+let adminVerified = false;
+
+// ADMIN VERIFICATION
+onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    try {
+        const adminRef = doc(db, "admins", user.uid);
+        const adminSnapshot = await getDoc(adminRef);
+
+        if (!adminSnapshot.exists() ||
+            adminSnapshot.data().role !== "admin") {
+            await signOut(auth);
+            window.location.href = "login.html";
+            return;
+        }
+
+        adminVerified = true;
+
+await loadCategories();
+await loadEvents();
+await loadRegistrations();
+    } catch (error) {
+        console.error(error);
+        await signOut(auth);
+        window.location.href = "login.html";
+    }
+});
+
+// ADD CATEGORY
+categoryForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!adminVerified) return;
+
+    const name = document.getElementById("categoryName").value.trim();
+    const description = document.getElementById("categoryDescription").value.trim();
+
+    if (!name || !description) return;
+
+    try {
+        await addDoc(collection(db, "categories"), {
+            name,
+            description,
+            createdAt: serverTimestamp()
+        });
+
+        alert("Category added successfully!");
+        categoryForm.reset();
+
+        await loadCategories();
+
+    } catch (error) {
+        console.error(error);
+        alert("Unable to add category.");
+    }
+});
+
+// LOAD CATEGORIES
+async function loadCategories() {
+    if (!adminVerified) return;
+
+    const snapshot = await getDocs(collection(db, "categories"));
+
+    categoryList.innerHTML = "";
+    eventCategory.innerHTML = '<option value="">Select a category</option>';
+
+    if (snapshot.empty) {
+        categoryList.textContent = "No categories added yet.";
+        return;
+    }
+
+    snapshot.forEach((categoryDoc) => {
+        const category = categoryDoc.data();
+
+        // Display category
+        const item = document.createElement("div");
+        item.className = "admin-card";
+
+        const heading = document.createElement("h3");
+        heading.textContent = category.name;
+
+        const description = document.createElement("p");
+        description.textContent = category.description;
+
+        const editButton = document.createElement("button");
+editButton.textContent = "Edit";
+editButton.className = "primary-btn";
+
+editButton.addEventListener("click", async () => {
+    const newName = prompt("Enter new category name:", category.name);
+    if (newName === null || !newName.trim()) return;
+
+    const newDescription = prompt(
+        "Enter new description:", category.description
+    );
+    if (newDescription === null || !newDescription.trim()) return;
+
+    try {
+        await updateDoc(doc(db, "categories", categoryDoc.id), {
+            name: newName.trim(),
+            description: newDescription.trim()
+        });
+
+        alert("Category updated!");
+        await loadCategories();
+        await loadEvents();
+    } catch (error) {
+        console.error(error);
+        alert("Unable to update category.");
+    }
+});
+
+const deleteButton = document.createElement("button");
+deleteButton.textContent = "Delete";
+deleteButton.className = "primary-btn";
+
+deleteButton.addEventListener("click", async () => {
+    const confirmed = confirm(
+        "Delete this category? Its sub-events will also need attention."
+    );
+
+    if (!confirmed) return;
+
+    try {
+        const eventsSnapshot = await getDocs(collection(db, "events"));
+        const hasEvents = eventsSnapshot.docs.some(
+            eventDoc => eventDoc.data().categoryId === categoryDoc.id
+        );
+
+        if (hasEvents) {
+            alert("Please delete or move this category's sub-events first.");
+            return;
+        }
+
+        await deleteDoc(doc(db, "categories", categoryDoc.id));
+
+        alert("Category deleted!");
+        await loadCategories();
+    } catch (error) {
+        console.error(error);
+        alert("Unable to delete category.");
+    }
+});
+
+item.append(heading, description, editButton, deleteButton);
+categoryList.appendChild(item);
+        // Add category to dropdown
+        const option = document.createElement("option");
+        option.value = categoryDoc.id;
+        option.textContent = category.name;
+
+        eventCategory.appendChild(option);
+    });
+}
+
+// ADD SUB-EVENT
+eventForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!adminVerified) return;
+
+    const categoryId = eventCategory.value;
+    const name = document.getElementById("eventName").value.trim();
+    const description = document.getElementById("eventDescription").value.trim();
+
+    if (!categoryId || !name || !description) return;
+
+    try {
+        const categorySnapshot = await getDoc(
+            doc(db, "categories", categoryId)
+        );
+
+        if (!categorySnapshot.exists()) {
+            alert("Selected category not found.");
+            return;
+        }
+
+        await addDoc(collection(db, "events"), {
+            categoryId,
+            categoryName: categorySnapshot.data().name,
+            name,
+            description,
+            createdAt: serverTimestamp()
+        });
+
+        alert("Sub-event added successfully!");
+        eventForm.reset();
+
+        await loadEvents();
+
+    } catch (error) {
+        console.error(error);
+        alert("Unable to add sub-event.");
+    }
+});
+
+// DISPLAY SUB-EVENTS
+async function loadEvents() {
+    if (!adminVerified) return;
+
+    const snapshot = await getDocs(collection(db, "events"));
+
+    eventList.innerHTML = "";
+
+    if (snapshot.empty) {
+        eventList.textContent = "No sub-events added yet.";
+        return;
+    }
+
+    snapshot.forEach((eventDoc) => {
+        const event = eventDoc.data();
+
+        const item = document.createElement("div");
+        item.className = "admin-card";
+
+        const heading = document.createElement("h3");
+        heading.textContent = event.name;
+
+        const category = document.createElement("p");
+        category.textContent = "Category: " + event.categoryName;
+
+        const description = document.createElement("p");
+        description.textContent = event.description;
+
+        // EDIT EVENT
+const editButton = document.createElement("button");
+editButton.textContent = "Edit";
+editButton.className = "primary-btn";
+
+editButton.addEventListener("click", async () => {
+    const newName = prompt("Enter new event name:", event.name);
+    if (newName === null || !newName.trim()) return;
+
+    const newDescription = prompt(
+        "Enter new description:", event.description
+    );
+    if (newDescription === null || !newDescription.trim()) return;
+
+    try {
+        await updateDoc(doc(db, "events", eventDoc.id), {
+            name: newName.trim(),
+            description: newDescription.trim()
+        });
+
+        alert("Event updated successfully!");
+        await loadEvents();
+    } catch (error) {
+        console.error(error);
+        alert("Unable to update event.");
+    }
+});
+
+// DELETE EVENT
+const deleteButton = document.createElement("button");
+deleteButton.textContent = "Delete";
+deleteButton.className = "primary-btn";
+
+deleteButton.addEventListener("click", async () => {
+    if (!confirm("Are you sure you want to delete this event?")) return;
+
+    try {
+        await deleteDoc(doc(db, "events", eventDoc.id));
+
+        alert("Event deleted successfully!");
+        await loadEvents();
+    } catch (error) {
+        console.error(error);
+        alert("Unable to delete event.");
+    }
+});
+
+item.append(heading, category, description, editButton, deleteButton);
+eventList.appendChild(item);
+    });
+}
+
+// LOAD STUDENT REGISTRATIONS
+async function loadRegistrations() {
+    if (!adminVerified) return;
+
+    const registrationList = document.getElementById("registrationList");
+
+    try {
+        const studentsSnapshot = await getDocs(
+            collection(db, "students")
+        );
+
+        registrationList.innerHTML = "";
+
+        let totalRegistrations = 0;
+
+        if (studentsSnapshot.empty) {
+            registrationList.textContent = "No students registered yet.";
+            document.getElementById("registrationCount").textContent = 0;
+            return;
+        }
+
+        for (const studentDoc of studentsSnapshot.docs) {
+            const student = studentDoc.data();
+
+            const registrationsSnapshot = await getDocs(
+                collection(db, "students", studentDoc.id, "registrations")
+            );
+
+            registrationsSnapshot.forEach((registrationDoc) => {
+                const registration = registrationDoc.data();
+
+                const card = document.createElement("div");
+                card.className = "admin-card";
+
+                const name = document.createElement("h3");
+                name.textContent = student.name || "Unknown Student";
+
+                const roll = document.createElement("p");
+                roll.textContent = "Roll Number: " + (student.rollNumber || "N/A");
+
+                const email = document.createElement("p");
+                email.textContent = "Email: " + (student.email || "N/A");
+
+                const event = document.createElement("p");
+                event.textContent = "Event: " + (registration.eventName || registration.eventId || "N/A");
+
+                card.append(name, roll, email, event);
+                registrationList.appendChild(card);
+
+                totalRegistrations++;
+            });
+        }
+
+        document.getElementById("registrationCount").textContent =
+            totalRegistrations;
+
+        if (totalRegistrations === 0) {
+            registrationList.textContent = "No event registrations yet.";
+        }
+
+    } catch (error) {
+        console.error("Registration loading error:", error);
+        registrationList.textContent = "Unable to load registrations.";
+    }
+}
+
+// LOGOUT
+logoutButton.addEventListener("click", async () => {
+    await signOut(auth);
+    window.location.href = "login.html";
+});
+</script>
+
+</body>
+</html>
